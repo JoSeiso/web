@@ -1,0 +1,33 @@
+FROM debian:latest
+
+# Actualizar repositorio e instalar Apache, PHP y utilidades
+RUN apt-get update && \
+    apt-get install -y apache2 apache2-utils php && \
+    rm -rf /var/lib/apt/lists/*
+
+# Habilitar el módulo SSL de Apache
+RUN a2enmod ssl
+
+# Copiar el archivo de configuración personalizado
+COPY apache_vhost.conf /etc/apache2/sites-available/custom.conf
+
+# Crear el directorio de la web y copiar la página
+RUN mkdir -p /var/www/custom && \
+    chown -R www-data:www-data /var/www/custom
+COPY files/index.html /var/www/custom/index.php
+
+# Crear la carpeta de certificados y copiar los certificados (ya creados) al contenedor
+RUN mkdir -p /etc/apache2/ssl
+COPY certs/certificate.crt /etc/apache2/ssl/tu_certificado.crt
+COPY certs/private.key   /etc/apache2/ssl/tu_llave.key
+COPY certs/ca_bundle.crt /etc/apache2/ssl/ca_bundle.crt
+
+# Habilitar el sitio personalizado y el módulo rewrite
+RUN a2ensite custom && \
+    a2enmod rewrite
+
+# Exponer puertos: 8080 para HTTP y 443 para HTTPS
+EXPOSE 8080 443
+
+# Iniciar Apache en primer plano
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

@@ -1,0 +1,53 @@
+- hosts: webserver
+  gather_facts: no
+  vars:
+    apache_image: "mi_apache_personalizado:latest"
+    nginx_image: "mi_nginx_personalizado:latest"
+  tasks:
+    - name: Crear directorio para Apache en el host remoto
+      file:
+        path: /home/nginx/my_playbook/roles/apache
+        state: directory
+        mode: '0755'
+
+    - name: Renderizar Dockerfile para Apache
+      template:
+        src: "{{ playbook_dir }}/roles/apache/dockerfile.j2"
+        dest: "{{ playbook_dir }}/roles/apache/dockerfile"
+    - name: Renderizar configuración de Apache
+      template:
+        src: "{{ playbook_dir }}/roles/apache/templates/apache_vhost.conf.j2"
+        dest: "{{ playbook_dir }}/roles/apache/apache_vhost.conf"
+    - name: Crear directorio para Nginx en el host remoto
+      file:
+        path: /home/nginx/my_playbook/roles/nginx
+        state: directory
+        mode: '0755'
+
+    - name: Renderizar Dockerfile para Nginx
+      template:
+        src: "{{ playbook_dir }}/roles/nginx/dockerfile.j2"
+        dest: "{{ playbook_dir }}/roles/nginx/dockerfile"
+    - name: Renderizar configuración de Apache
+      template:
+        src: "{{ playbook_dir }}/roles/nginx/templates/nginx_site.conf.j2"
+        dest: "{{ playbook_dir }}/roles/nginx/nginx_site.conf"
+
+
+    - name: Construir imagen de Apache personalizada
+      docker_image:
+        name: "{{ apache_image }}"
+        state: present
+        source: build
+        build:
+          path: "/home/nginx/my_playbook/roles/apache"
+          dockerfile: "dockerfile"
+
+    - name: Construir imagen de Nginx personalizada
+      docker_image:
+        name: "{{ nginx_image }}"
+        state: present
+        source: build
+        build:
+          path: "/home/nginx/my_playbook/roles/nginx"
+          dockerfile: "dockerfile"
