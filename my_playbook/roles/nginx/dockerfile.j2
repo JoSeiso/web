@@ -1,0 +1,29 @@
+FROM debian:latest
+
+# Actualizar repositorio e instalar Nginx
+RUN apt-get update && \
+    apt-get install -y nginx && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copiar el archivo de configuración personalizado
+COPY nginx_site.conf /etc/nginx/sites-available/custom.conf
+
+# Crear el directorio de la web y copiar la página
+RUN mkdir -p /var/www/custom && \
+    chown -R www-data:www-data /var/www/custom
+COPY files/index.html /var/www/custom/index.html
+
+# Copiar los certificados en el contenedor
+RUN mkdir -p /etc/nginx/ssl
+COPY certs/certificate.crt /etc/nginx/ssl/tu_certificado.crt
+COPY certs/private.key   /etc/nginx/ssl/tu_llave.key
+COPY certs/ca_bundle.crt /etc/nginx/ssl/ca_bundle.crt
+
+# Activar la configuración personalizada (por medio de un enlace simbólico)
+RUN ln -s /etc/nginx/sites-available/custom.conf /etc/nginx/sites-enabled/
+
+# Exponer puertos: 8081 para HTTP y 444 para HTTPS (por ejemplo)
+EXPOSE 8081 444
+
+# Iniciar Nginx en primer plano
+CMD ["nginx", "-g", "daemon off;"]
