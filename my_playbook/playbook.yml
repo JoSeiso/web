@@ -1,12 +1,16 @@
+---
 - hosts: webserver
   gather_facts: no
   vars:
+    version: "v2"  # Cambia este valor para actualizar la versión
     aws_account_id: "924529018629"
     aws_region: "us-east-1"
-    apache_image_local: "mi_apache_personalizado:latest"
-    nginx_image_local: "mi_nginx_personalizado:latest"
-    apache_image_aws: "924529018629.dkr.ecr.us-east-1.amazonaws.com/apache:latest"
-    nginx_image_aws: "924529018629.dkr.ecr.us-east-1.amazonaws.com/nginx:latest"
+    # Definición de imágenes locales con la versión incluida
+    apache_image_local: "mi_apache_personalizado:{{ version }}"
+    nginx_image_local: "mi_nginx_personalizado:{{ version }}"
+    # Definición de imágenes para AWS ECR con la versión incluida
+    apache_image_aws: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/apache:{{ version }}"
+    nginx_image_aws: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/nginx:{{ version }}"
   tasks:
 
     ### 1. Autenticar Docker en AWS ECR
@@ -16,7 +20,9 @@
         aws ecr get-login-password --region {{ aws_region }} |
         docker login --username AWS --password-stdin {{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com
 
-    ### 2. Construcción de imágenes
+    ### 2. Preparar el entorno para construir imágenes
+
+    # --- Apache ---
     - name: Crear directorio para Apache en el host remoto
       file:
         path: /home/nginx/my_playbook/roles/apache
@@ -26,13 +32,14 @@
     - name: Renderizar Dockerfile para Apache
       template:
         src: "{{ playbook_dir }}/roles/apache/dockerfile.j2"
-        dest: "{{ playbook_dir }}/roles/apache/dockerfile"
+        dest: "/home/nginx/my_playbook/roles/apache/dockerfile"
 
     - name: Renderizar configuración de Apache
       template:
         src: "{{ playbook_dir }}/roles/apache/templates/apache_vhost.conf.j2"
-        dest: "{{ playbook_dir }}/roles/apache/apache_vhost.conf"
+        dest: "/home/nginx/my_playbook/roles/apache/apache_vhost.conf"
 
+    # --- Nginx ---
     - name: Crear directorio para Nginx en el host remoto
       file:
         path: /home/nginx/my_playbook/roles/nginx
@@ -42,12 +49,14 @@
     - name: Renderizar Dockerfile para Nginx
       template:
         src: "{{ playbook_dir }}/roles/nginx/dockerfile.j2"
-        dest: "{{ playbook_dir }}/roles/nginx/dockerfile"
+        dest: "/home/nginx/my_playbook/roles/nginx/dockerfile"
 
     - name: Renderizar configuración de Nginx
       template:
-        src: "{{ playbook_dir }}/roles/nginx/templates/nginx_site.conf.j2"
-        dest: "{{ playbook_dir }}/roles/nginx/nginx_site.conf"
+        src: "{{ playbook_dir }}/roles/nginx/templates/nginx_{{ version }}.conf.j2"
+        dest: "/home/nginx/my_playbook/roles/nginx/conf/nginx_{{ version }}.conf"
+
+    ### 3. Construcción de imágenes Docker con el argumento de versión
 
     - name: Construir imagen de Apache personalizada
       docker_image:
@@ -57,6 +66,8 @@
         build:
           path: "/home/nginx/my_playbook/roles/apache"
           dockerfile: "dockerfile"
+          args:
+            VERSION: "{{ version }}"
 
     - name: Construir imagen de Nginx personalizada
       docker_image:
@@ -66,8 +77,11 @@
         build:
           path: "/home/nginx/my_playbook/roles/nginx"
           dockerfile: "dockerfile"
+          args:
+            VERSION: "{{ version }}"
 
-    ### 3. Etiquetar imágenes para AWS ECR
+    ### 4. Etiquetar imágenes para AWS ECR
+
     - name: Etiquetar la imagen de Apache para AWS ECR
       shell: >
         docker tag {{ apache_image_local }} {{ apache_image_aws }}
@@ -76,7 +90,8 @@
       shell: >
         docker tag {{ nginx_image_local }} {{ nginx_image_aws }}
 
-    ### 4. Subir imágenes a AWS ECR
+    ### 5. Subir imágenes a AWS ECR
+
     - name: Subir la imagen de Apache a AWS ECR
       shell: >
         docker push {{ apache_image_aws }}

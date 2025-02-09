@@ -1,17 +1,21 @@
 FROM debian:latest
 
+#variables de compilacion (por defecto es la v1)
+ARG VERSION="v1"
+
+
 # Actualizar repositorio e instalar Nginx
 RUN apt-get update && \
     apt-get install -y nginx && \
     rm -rf /var/lib/apt/lists/*
 
 # Copiar el archivo de configuración personalizado
-COPY nginx_site.conf /etc/nginx/sites-available/custom.conf
+COPY conf/nginx_${VERSION}.conf /etc/nginx/sites-available/custom.conf
 
 # Crear el directorio de la web y copiar la página
 RUN mkdir -p /var/www/custom && \
     chown -R www-data:www-data /var/www/custom
-COPY files/index.html /var/www/custom/index.html
+COPY files/index_${VERSION}.html /var/www/custom/index.html
 
 # Copiar los certificados en el contenedor
 RUN mkdir -p /etc/nginx/ssl

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: nginx
@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: 924529018629.dkr.ecr.us-east-1.amazonaws.com/nginx
+        image: 924529018629.dkr.ecr.us-east-1.amazonaws.com/nginx:v1
         ports:
-        - containerPort: 80
+        - containerPort: 8081
       imagePullSecrets:
       - name: ecr-secret
