@@ -20,7 +20,7 @@ server {
         try_files $uri $uri/ =404;
     }
 
-    # Soporte para PHP (si usas PHP-FPM)
+    # Soporte para PHP
     location ~ \.php$ {
         fastcgi_pass 127.0.0.1:9000;  # Ajusta según la configuración de PHP-FPM
         fastcgi_index index.php;
