@@ -2,7 +2,7 @@
 - hosts: webserver
   gather_facts: no
   vars:
-    version: "v2"  # Cambia este valor para actualizar la versión
+    version: "v5"  # Cambia este valor para actualizar la versión
     aws_account_id: "924529018629"
     aws_region: "us-east-1"
     # Definición de imágenes locales con la versión incluida
@@ -11,6 +11,9 @@
     # Definición de imágenes para AWS ECR con la versión incluida
     apache_image_aws: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/apache:{{ version }}"
     nginx_image_aws: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/nginx:{{ version }}"
+    php_fpm_image_aws: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/php-fpm:{{ version }}"
+    mysql_image_aws: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/mysql:{{ version }}"
+
   tasks:
 
     ### 1. Autenticar Docker en AWS ECR
@@ -39,6 +42,17 @@
         src: "{{ playbook_dir }}/roles/apache/templates/apache_vhost.conf.j2"
         dest: "/home/nginx/my_playbook/roles/apache/apache_vhost.conf"
 
+#Renderizado de php y mysql
+    - name: Renderizar Dockerfile para PHP-FPM
+      template:
+        src: "{{ playbook_dir }}/roles/nginx/Dockerfile.php.j2"
+        dest: "/home/nginx/my_playbook/roles/nginx/Dockerfile.php"
+
+    - name: Renderizar Dockerfile para MySQL
+      template:
+        src: "{{ playbook_dir }}/roles/nginx/Dockerfile.mysql.j2"
+        dest: "/home/nginx/my_playbook/roles/nginx/Dockerfile.mysql"
+
     # --- Nginx ---
     - name: Crear directorio para Nginx en el host remoto
       file:
@@ -56,7 +70,24 @@
         src: "{{ playbook_dir }}/roles/nginx/templates/nginx_{{ version }}.conf.j2"
         dest: "/home/nginx/my_playbook/roles/nginx/conf/nginx_{{ version }}.conf"
 
-    ### 3. Construcción de imágenes Docker con el argumento de versión
+    - name: Paso los INDEX de joseasir2.work.gd a la maquina remota
+      template:
+        src: "{{ playbook_dir }}/roles/nginx/files/index_{{ version }}.html"
+        dest: "/home/nginx/my_playbook/roles/nginx/files/index_{{ version }}.html"
+
+    - name: Paso los INDEX de otro a la maquina remota
+      template:
+        src: "{{ playbook_dir }}/roles/nginx/files/index2_{{ version }}.html"
+        dest: "/home/nginx/my_playbook/roles/nginx/files/index2_{{ version }}.html"
+
+    - name: Paso los ARCHIVOS_PHP a la maquina remota
+      copy:
+        src: "{{ playbook_dir }}/roles/nginx/archivos_php/"
+        dest: "/home/nginx/my_playbook/roles/nginx/archivos_php/"
+        mode: '0755'
+
+
+### 3. Construcción de imágenes Docker con el argumento de versión
 
     - name: Construir imagen de Apache personalizada
       docker_image:
@@ -80,6 +111,29 @@
           args:
             VERSION: "{{ version }}"
 
+    - name: Construir imagen de PHP-FPM
+      docker_image:
+        name: "mi_php_fpm:{{ version }}"
+        state: present
+        source: build
+        build:
+          path: "/home/nginx/my_playbook/roles/nginx"
+          dockerfile: "Dockerfile.php"
+          args:
+            VERSION: "{{ version }}"
+
+    - name: Construir imagen de MySQL
+      docker_image:
+        name: "mi_mysql:{{ version }}"
+        state: present
+        source: build
+        build:
+          path: "/home/nginx/my_playbook/roles/nginx"
+          dockerfile: "Dockerfile.mysql"
+          args:
+            VERSION: "{{ version }}"
+
+
     ### 4. Etiquetar imágenes para AWS ECR
 
     - name: Etiquetar la imagen de Apache para AWS ECR
@@ -90,6 +144,15 @@
       shell: >
         docker tag {{ nginx_image_local }} {{ nginx_image_aws }}
 
+    - name: Etiquetar la imagen de PHP-FPM para AWS ECR
+      shell: >
+        docker tag mi_php_fpm:{{ version }} {{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/php-fpm:{{ version }}
+
+    - name: Etiquetar la imagen de MySQL para AWS ECR
+      shell: >
+        docker tag mi_mysql:{{ version }} {{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/mysql:{{ version }}
+
+
     ### 5. Subir imágenes a AWS ECR
 
     - name: Subir la imagen de Apache a AWS ECR
@@ -99,3 +162,10 @@
     - name: Subir la imagen de Nginx a AWS ECR
       shell: >
         docker push {{ nginx_image_aws }}
+
+    - name: Subir la imagen de PHP-FPM a AWS ECR
+      shell: >
+        docker push {{ php_fpm_image_aws }}
+    - name: Subir la imagen de MySQL a AWS ECR
+      shell: >
+        docker push {{ mysql_image_aws }}
