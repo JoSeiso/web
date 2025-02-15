@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-fpm-deployment
+  labels:
+    app: php-fpm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php-fpm
+  template:
+    metadata:
+      labels:
+        app: php-fpm
+    spec:
+      containers:
+      - name: php-fpm
+        image: 924529018629.dkr.ecr.us-east-1.amazonaws.com/php-fpm:v5
+        ports:
+        - containerPort: 9000
+        volumeMounts:
+        - name: web-content
+          mountPath: /var/www/joseasir2.work.gd  # Monte el volumen en esta ruta dentro del contenedor
+      volumes:
+      - name: web-content
+        persistentVolumeClaim:
+          claimName: pvc-webapp
+      imagePullSecrets:
+      - name: ecr-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-fpm-service
+spec:
+  selector:
+    app: php-fpm
+  ports:
+  - port: 9000
+    targetPort: 9000

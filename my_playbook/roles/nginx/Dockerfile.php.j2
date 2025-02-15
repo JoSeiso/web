@@ -1,0 +1,21 @@
+FROM php:8.0-fpm
+
+# Instala dependencias necesarias
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd mysqli pdo pdo_mysql
+
+# Copia los archivos PHP al contenedor
+COPY archivos_php/ /var/www/html/
+
+# Cambia permisos para que Nginx y PHP-FPM puedan acceder
+RUN chown -R www-data:www-data /var/www/html
+
+# Expón el puerto 9000 para PHP-FPM
+EXPOSE 9000
+
+# Inicia PHP-FPM
+CMD ["php-fpm"]

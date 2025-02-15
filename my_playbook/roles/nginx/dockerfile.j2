@@ -16,10 +16,6 @@ COPY conf/nginx_${VERSION}.conf /etc/nginx/sites-available/custom.conf
 RUN mkdir -p /var/www/joseasir2.work.gd /var/www/otro && \
     chown -R www-data:www-data /var/www/joseasir2.work.gd /var/www/otro
 
-#Copio los archivos en el directorio correspondiente
-COPY files/index_${VERSION}.html /var/www/joseasir2.work.gd/index.html
-COPY files/index2_${VERSION}.html /var/www/otro/index.html
-
 # Copiar los certificados del sitio 1
 RUN mkdir -p /etc/nginx/ssl
 COPY certs/certificate.crt /etc/nginx/ssl/tu_certificado.crt
@@ -36,7 +32,7 @@ COPY certs/ca_bundle.crt /etc/nginx/ssl/otro_ca_bundle.crt
 RUN ln -s /etc/nginx/sites-available/custom.conf /etc/nginx/sites-enabled/
 
 # Exponer puertos: 8081 para HTTP y 444 para HTTPS (por ejemplo)
-EXPOSE 8081 444
+EXPOSE 8081 444 8082 8443
 
 # Iniciar Nginx en primer plano
 CMD ["nginx", "-g", "daemon off;"]

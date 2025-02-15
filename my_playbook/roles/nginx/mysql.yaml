@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      imagePullSecrets:
+        - name: ecr-secret  # Asegúrate de incluir esto aquí
+      containers:
+      - name: mysql
+        image: "924529018629.dkr.ecr.us-east-1.amazonaws.com/mysql:v4"  # Asegúrate de que esta imagen está en ECR
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "my_passwd"
+        - name: MYSQL_DATABASE
+          value: "mi_basedatos"
+        - name: MYSQL_USER
+          value: "mi_usuario"
+        - name: MYSQL_PASSWORD
+          value: "my_passwd"
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql  # Monte el volumen en el directorio de datos de MySQL
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
