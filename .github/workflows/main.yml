@@ -50,6 +50,6 @@ jobs:
       - name: Verify deployment
         run: |
           kubectl rollout status deployment/nginx-deployment2
-          kubectl rollout status deployment/mysql
-          kubectl rollout status deployment/php-fpm
+          kubectl rollout status deployment/mysql-deployment
+          kubectl rollout status deployment/php-fpm-deployment
           
