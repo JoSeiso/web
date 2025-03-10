@@ -16,18 +16,27 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: 924529018629.dkr.ecr.us-east-1.amazonaws.com/nginx:v5
+        image: 924529018629.dkr.ecr.us-east-1.amazonaws.com/nginx:v8
         ports:
-        - containerPort: 8081  # Para HTTP (redirección a HTTPS)
-        - containerPort: 444   # Para HTTPS del sitio 1
-        - containerPort: 8082  # Para HTTP del sitio 2 (redirección)
-        - containerPort: 8443  # Para HTTPS del sitio 2
+        - containerPort: 80
         volumeMounts:
-        - name: web-content
-          mountPath: /var/www/joseasir2.work.gd  # Monte el volumen en la misma ruta
+        - name: web-config
+          mountPath: /etc/nginx/sites-available/  # Monte el volumen en la misma ruta
+          readOnly: false
+        - name: htpasswd-volume
+          mountPath: /etc/nginx/.htpasswd
+          subPath: htpasswd
+          readOnly: true
       volumes:
-      - name: web-content
+      - name: web-config
         persistentVolumeClaim:
-          claimName: pvc-webapp
+          claimName: pvc-config
+      - name: htpasswd-volume
+        secret:
+          secretName: basic-auth  # El secret que creaste
+          items:
+            - key: htpasswd
+              path: htpasswd
+
       imagePullSecrets:
       - name: ecr-secret

@@ -1,0 +1,29 @@
+# ============================
+# Sitio 1: joseasir2.work.gd
+# ============================
+server {
+    listen 80;
+    server_name joseasir2.work.gd;
+    
+    root /var/www/joseasir2.work.gd;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
+# ============================
+# Sitio 2: otro.dominio.com
+# ============================
+server {
+    listen 80;
+    server_name otro.dominio.com;
+    
+    root /var/www/otro;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

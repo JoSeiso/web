@@ -24,4 +24,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: standard  # <- Coincide con el PV
+  storageClassName: standard  #

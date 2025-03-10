@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment2
+  labels:
+    app: nginx2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx2
+  template:
+    metadata:
+      labels:
+        app: nginx2
+    spec:
+      containers:
+      - name: nginx
+        image: 924529018629.dkr.ecr.us-east-1.amazonaws.com/nginx:v5
+        ports:
+        - containerPort: 8081  # Para HTTP (redirección a HTTPS)
+        - containerPort: 444   # Para HTTPS del sitio 1
+        - containerPort: 8082  # Para HTTP del sitio 2 (redirección)
+        - containerPort: 8443  # Para HTTPS del sitio 2
+        volumeMounts:
+        - name: web-content
+          mountPath: /var/www/joseasir2.work.gd  # Monte el volumen en la misma ruta
+      volumes:
+      - name: web-content
+        persistentVolumeClaim:
+          claimName: pvc-webapp
+      imagePullSecrets:
+      - name: ecr-secret

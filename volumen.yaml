@@ -1,27 +1,27 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-webapp
+  name: pv-config
 spec:
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: standard  # <- Agregar esto para que coincida con el PVC
+  storageClassName: standard
   hostPath:
-    path: /mnt/data/php
+    path: /mnt/data/conf
     type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-webapp
+  name: pvc-config
 spec:
-  volumeName: pv-webapp
+  volumeName: pv-config
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
-  storageClassName: standard  # <- Coincide con el PV
+  storageClassName: standard

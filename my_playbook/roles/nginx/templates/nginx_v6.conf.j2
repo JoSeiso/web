@@ -1,0 +1,70 @@
+# Configuración para HTTP: redirecciona a HTTPS
+server {
+    listen 80;
+    server_name joseasir2.work.gd;
+    return 301 https://$host:444$request_uri;
+}
+
+# Configuración para HTTPS
+server {
+    listen 444 ssl;
+    server_name joseasir2.work.gd;
+    
+    root /var/www/joseasir2.work.gd;
+    index index.php index.html index.htm;
+
+    ssl_certificate /etc/nginx/ssl/tu_certificado.crt;
+    ssl_certificate_key /etc/nginx/ssl/tu_llave.key;
+    ssl_trusted_certificate /etc/nginx/ssl/ca_bundle.crt;
+    
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+    	fastcgi_pass php-fpm-service:9000;
+    	fastcgi_index index.php;
+    	include fastcgi_params;
+    	fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    
+    # Puedes agregar otras directivas o ubicaciones según necesites
+}
+
+# ============================
+# Sitio 2: otro.dominio.com
+# ============================
+
+# Bloque para HTTP: redirecciona a HTTPS
+server {
+    listen 8082;
+    server_name otro.dominio.com;
+    return 301 https://$host:444$request_uri;
+}
+
+# Bloque para HTTPS
+server {
+    listen 8443 ssl;
+    server_name otro.dominio.com;
+    
+    root /var/www/otro;
+    index index.php index.html index.htm;
+    
+    ssl_certificate     /etc/nginx/ssl/otro_certificado.crt;
+    ssl_certificate_key /etc/nginx/ssl/otro_llave.key;
+    ssl_trusted_certificate /etc/nginx/ssl/otro_ca_bundle.crt;
+    
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+    fastcgi_pass php-fpm-service:9000;
+    fastcgi_index index.php;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+}
+
+    # Otras directivas específicas para este sitio
+}
