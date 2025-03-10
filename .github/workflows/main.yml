@@ -33,15 +33,20 @@ jobs:
 
       - name: Apply Kubernetes manifests
         run: |
-          kubectl apply -f nginx-deployment.yaml
+          # Desplegar MySQL
+          kubectl apply -f my_playbook/roles/nginx/mysql.yaml
+          kubectl apply -f my_playbook/roles/nginx/mysql-pv.yaml
+          kubectl apply -f my_playbook/roles/nginx/mysql-service.yaml
+          
+          # Desplegar PHP
+          kubectl apply -f my_playbook/roles/nginx/php-fpm.yaml
+          kubectl apply -f my_playbook/roles/nginx/php-pv.yaml
+
+          # Despliego nginx
           kubectl apply -f nginx-deployment2.yaml
-          kubectl apply -f nginx-services.yaml
           kubectl apply -f nginx-services2.yaml
-          kubectl apply -f auth-secret.yaml
-          kubectl apply -f volumen.yaml
           kubectl apply -f volumen2.yaml
 
       - name: Verify deployment
         run: |
-          kubectl rollout status deployment/nginx-deployment
           kubectl rollout status deployment/nginx-deployment2
