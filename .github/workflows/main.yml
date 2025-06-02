@@ -42,7 +42,7 @@ jobs:
 
       - name: Apply Kubernetes manifests - Volumes (EFS / PVC)
         run: |
-          kubectl apply -f my_playbook/roles/nginx/volumen2.yaml  # EFS PV / PVC para nginx/php
+          kubectl apply -f volumen2.yaml  # EFS PV / PVC para nginx/php
           kubectl apply -f my_playbook/roles/nginx/mysql-pv.yaml   # PV/PVC para MySQL
 
       - name: Apply Kubernetes manifests - Deployments and Services
@@ -76,7 +76,7 @@ jobs:
             sleep 10
           done
 
-      - name: Debug: Show pods and services status
+      - name: Debug:Show pods and services status
         run: |
           kubectl get pods -o wide
           kubectl get svc -o wide
