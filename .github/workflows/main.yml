@@ -76,7 +76,7 @@ jobs:
             sleep 10
           done
 
-      - name: Debug: Show pods and services status
+      - name: Debug:Show pods and services status
         run: |
           kubectl get pods -o wide
           kubectl get svc -o wide
