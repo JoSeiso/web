@@ -13,7 +13,7 @@ spec:
   storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-0bee53fddd06093a6  # <- Tu FileSystem ID de EFS
+    volumeHandle: fs-0bee53fddd06093a6
 
 ---
 apiVersion: v1
