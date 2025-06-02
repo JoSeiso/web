@@ -3,8 +3,8 @@ name: Deploy to EKS
 on:
   push:
     branches:
-      - main  # Se ejecutará cuando hagas push a main
-  workflow_dispatch:  # También permite ejecución manual desde GitHub Actions
+      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -20,7 +20,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: us-east-1 
+          aws-region: us-east-1
 
       - name: Install kubectl
         run: |
@@ -31,25 +31,52 @@ jobs:
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --name iliberis --region us-east-1
 
-      - name: Apply Kubernetes manifests
+      - name: Create ECR Docker Registry Secret
         run: |
-          # Desplegar MySQL
+          aws ecr get-login-password --region us-east-1 | \
+          kubectl create secret docker-registry ecr-secret \
+            --docker-username=AWS \
+            --docker-password=$(aws ecr get-login-password --region us-east-1) \
+            --docker-server=533266989458.dkr.ecr.us-east-1.amazonaws.com \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Apply Kubernetes manifests - Volumes (EFS / PVC)
+        run: |
+          kubectl apply -f my_playbook/roles/nginx/volumen2.yaml  # EFS PV / PVC para nginx/php
+          kubectl apply -f my_playbook/roles/nginx/mysql-pv.yaml   # PV/PVC para MySQL
+
+      - name: Apply Kubernetes manifests - Deployments and Services
+        run: |
+          # MySQL
           kubectl apply -f my_playbook/roles/nginx/mysql.yaml
-          kubectl apply -f my_playbook/roles/nginx/mysql-pv.yaml
           kubectl apply -f my_playbook/roles/nginx/mysql-service.yaml
-          
-          # Desplegar PHP
+          # PHP-FPM
           kubectl apply -f my_playbook/roles/nginx/php-fpm.yaml
           kubectl apply -f my_playbook/roles/nginx/php-pv.yaml
-
-          # Despliego nginx
+          # Nginx
           kubectl apply -f nginx-deployment2.yaml
           kubectl apply -f nginx-services2.yaml
-          kubectl apply -f volumen2.yaml
 
-      - name: Verify deployment
+      - name: Verify deployments rollout status
         run: |
           kubectl rollout status deployment/nginx-deployment2
           kubectl rollout status deployment/mysql-deployment
           kubectl rollout status deployment/php-fpm-deployment
-          
+
+      - name: Wait for nginx-service2 LoadBalancer IP
+        run: |
+          echo "Waiting for nginx-service2 external IP..."
+          for i in {1..30}; do
+            IP=$(kubectl get svc nginx-service2 -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+            if [[ -n "$IP" ]]; then
+              echo "Service is available at: $IP"
+              break
+            fi
+            echo "Waiting..."
+            sleep 10
+          done
+
+      - name: Debug: Show pods and services status
+        run: |
+          kubectl get pods -o wide
+          kubectl get svc -o wide
