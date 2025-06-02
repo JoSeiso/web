@@ -16,7 +16,11 @@ spec:
     spec:
       containers:
       - name: nginx
+<<<<<<< HEAD
         image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/nginx:v8
+=======
+        image: image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/nginx:v8
+>>>>>>> 9f35e0c32789beea2cf2a9a51f1ff43e626d6b94
         ports:
         - containerPort: 8081  # Para HTTP (redirección a HTTPS)
         - containerPort: 444   # Para HTTPS del sitio 1
