@@ -1,4 +1,21 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: gp2
+  awsElasticBlockStore:
+    volumeID: <tu-volume-id-de-ebs>
+    fsType: ext4
+
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pvc
@@ -8,4 +25,4 @@ spec:
   storageClassName: gp2
   resources:
     requests:
-      storage: 10Gi
+      storage: 5Gi
