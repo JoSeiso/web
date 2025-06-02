@@ -1,7 +1,8 @@
+# efs-pv.yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: php-pv
+  name: efs-pv
 spec:
   capacity:
     storage: 5Gi
@@ -12,12 +13,13 @@ spec:
   storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-0bee53fddd06093a6  # <-- tu ID real de EFS
+    volumeHandle: fs-0bee53fddd06093a6  # <- Tu FileSystem ID de EFS
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: php-pvc
+  name: efs-pvc
 spec:
   accessModes:
     - ReadWriteMany

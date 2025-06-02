@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: php-fpm
-        image: 924529018629.dkr.ecr.us-east-1.amazonaws.com/php-fpm:v5
+        image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/php-fpm:v8
         ports:
         - containerPort: 9000
         volumeMounts:
@@ -25,7 +25,7 @@ spec:
       volumes:
       - name: web-content
         persistentVolumeClaim:
-          claimName: pvc-webapp
+          claimName: php-pvc
       imagePullSecrets:
       - name: ecr-secret
 ---

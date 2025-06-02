@@ -18,7 +18,7 @@ spec:
         - name: ecr-secret  # Asegúrate de incluir esto aquí
       containers:
       - name: mysql
-        image: "924529018629.dkr.ecr.us-east-1.amazonaws.com/mysql:v4"  # Asegúrate de que esta imagen está en ECR
+        image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/mysql:v8  # Asegúrate de que esta imagen está en ECR
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: "my_passwd"
