@@ -22,7 +22,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: gp2
+  storageClassName: gp2-waitforconsumer
   resources:
     requests:
       storage: 3Gi
