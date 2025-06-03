@@ -30,10 +30,10 @@ spec:
           value: "my_passwd"
         ports:
         - containerPort: 3306
-        volumeMounts:
+      volumeMounts:
         - name: mysql-storage
-          mountPath: /var/lib/mysql  # Monte el volumen en el directorio de datos de MySQL
+          mountPath: /var/lib/mysql
       volumes:
-      - name: mysql-storage
-        persistentVolumeClaim:
-          claimName: mysql-pvc
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: mysql-efs-pvc
