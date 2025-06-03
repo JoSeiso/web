@@ -15,25 +15,25 @@ spec:
         app: mysql
     spec:
       imagePullSecrets:
-        - name: ecr-secret  # Asegúrate de incluir esto aquí
+        - name: ecr-secret
       containers:
       - name: mysql
-        image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/mysql:v8  # Asegúrate de que esta imagen está en ECR
+        image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/mysql:v8
         env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: "my_passwd"
-        - name: MYSQL_DATABASE
-          value: "mi_basedatos"
-        - name: MYSQL_USER
-          value: "mi_usuario"
-        - name: MYSQL_PASSWORD
-          value: "my_passwd"
+          - name: MYSQL_ROOT_PASSWORD
+            value: "my_passwd"
+          - name: MYSQL_DATABASE
+            value: "mi_basedatos"
+          - name: MYSQL_USER
+            value: "mi_usuario"
+          - name: MYSQL_PASSWORD
+            value: "my_passwd"
         ports:
-        - containerPort: 3306
-      volumeMounts:
-        - name: mysql-storage
-          mountPath: /var/lib/mysql
+          - containerPort: 3306
+        volumeMounts:
+          - name: mysql-storage
+            mountPath: /var/lib/mysql
       volumes:
         - name: mysql-storage
           persistentVolumeClaim:
-            claimName: mysql-efs-pvc
+            claimName: mysql-pvc
