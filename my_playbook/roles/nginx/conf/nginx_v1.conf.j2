@@ -22,7 +22,7 @@ server {
 
     # Soporte para PHP (si usas PHP-FPM)
     location ~ \.php$ {
-        fastcgi_pass 127.0.0.1:9000;  # Ajusta según la configuración de PHP-FPM
+        fastcgi_pass PHP-FPM:9000;  # Ajusta según la configuración de PHP-FPM
         fastcgi_index index.php;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;

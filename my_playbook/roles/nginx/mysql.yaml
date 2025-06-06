@@ -18,16 +18,16 @@ spec:
         - name: ecr-secret
       containers:
       - name: mysql
-        image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/mysql:v8
+        image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/mysql:v9
         env:
           - name: MYSQL_ROOT_PASSWORD
-            value: "my_passwd"
+            value: "Jm742569"
           - name: MYSQL_DATABASE
-            value: "mi_basedatos"
+            value: "forobmw"
           - name: MYSQL_USER
-            value: "mi_usuario"
+            value: "jose.marbae"
           - name: MYSQL_PASSWORD
-            value: "my_passwd"
+            value: "Jm742569"
         ports:
           - containerPort: 3306
         volumeMounts:
