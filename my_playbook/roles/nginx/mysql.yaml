@@ -18,7 +18,7 @@ spec:
         - name: ecr-secret
       containers:
       - name: mysql
-        image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/mysql:v12
+        image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/mysql:v13
         env:
           - name: MYSQL_ROOT_PASSWORD
             value: "Jm742569"
