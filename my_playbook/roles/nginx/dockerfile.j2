@@ -23,9 +23,9 @@ COPY files/index2_${VERSION}.html /var/www/otro/index.html
 
 # Copiar los certificados del sitio 1
 RUN mkdir -p /etc/nginx/ssl
-COPY certs/certificate.crt /etc/nginx/ssl/tu_certificado.crt
-COPY certs/private.key   /etc/nginx/ssl/tu_llave.key
-COPY certs/ca_bundle.crt /etc/nginx/ssl/ca_bundle.crt
+COPY certs/certificate.crt /etc/nginx/ssl/certificate.crt
+COPY certs/private.key     /etc/nginx/ssl/private.key
+COPY certs/ca_bundle.crt   /etc/nginx/ssl/ca_bundle.crt
 
 # Copiar certificados para el sitio 2
 COPY certs/certificate.crt /etc/nginx/ssl/otro_certificado.crt
@@ -37,7 +37,7 @@ COPY certs/ca_bundle.crt /etc/nginx/ssl/otro_ca_bundle.crt
 RUN ln -s /etc/nginx/sites-available/custom.conf /etc/nginx/sites-enabled/
 
 # Exponer puertos: 8081 para HTTP y 444 para HTTPS (por ejemplo)
-EXPOSE 80 444 8082 8443
+EXPOSE 80 443
 
 # Iniciar Nginx en primer plano
 CMD ["nginx", "-g", "daemon off;"]

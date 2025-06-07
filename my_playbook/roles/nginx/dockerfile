@@ -1,29 +1,44 @@
 FROM debian:latest
 
+#variables de compilacion (por defecto es la v1)
+ARG VERSION="v1"
+
+
 # Actualizar repositorio e instalar Nginx
 RUN apt-get update && \
     apt-get install -y nginx && \
     rm -rf /var/lib/apt/lists/*
 
-# Copiar el archivo de configuración personalizado (asegúrate de que la plantilla ya esté renderizada)
-COPY nginx_site.conf /etc/nginx/sites-available/custom.conf
+# Copiar el archivo de configuración personalizado
+COPY conf/nginx_${VERSION}.conf /etc/nginx/sites-available/custom.conf
 
 # Crear el directorio de la web y copiar la página
-RUN mkdir -p /var/www/custom && \
-    chown -R www-data:www-data /var/www/custom
-COPY files/index.html /var/www/custom/index.html
+RUN mkdir -p /var/www/joseasir2.work.gd /var/www/otro && \
+    chown -R www-data:www-data /var/www/joseasir2.work.gd /var/www/otro
 
-# Copiar los certificados en el contenedor
+#Copio los archivos en el directorio correspondiente
+COPY files/index_${VERSION}.html /var/www/joseasir2.work.gd/index.html
+COPY files/index2_${VERSION}.html /var/www/otro/index.html
+
+
+# Copiar los certificados del sitio 1
 RUN mkdir -p /etc/nginx/ssl
-COPY certs/certificate.crt /etc/nginx/ssl/tu_certificado.crt
-COPY certs/private.key   /etc/nginx/ssl/tu_llave.key
-COPY certs/ca_bundle.crt /etc/nginx/ssl/ca_bundle.crt
+COPY certs/certificate.crt /etc/nginx/ssl/certificate.crt
+COPY certs/private.key     /etc/nginx/ssl/private.key
+COPY certs/ca_bundle.crt   /etc/nginx/ssl/ca_bundle.crt
+
+# Copiar certificados para el sitio 2
+COPY certs/certificate.crt /etc/nginx/ssl/otro_certificado.crt
+COPY certs/private.key   /etc/nginx/ssl/otro_llave.key
+COPY certs/ca_bundle.crt /etc/nginx/ssl/otro_ca_bundle.crt
+
 
 # Activar la configuración personalizada (por medio de un enlace simbólico)
 RUN ln -s /etc/nginx/sites-available/custom.conf /etc/nginx/sites-enabled/
 
-# Exponer puertos: 8081 para HTTP y 444 para HTTPS (según tu configuración)
-EXPOSE 8081 444
+# Exponer puertos: 8081 para HTTP y 444 para HTTPS (por ejemplo)
+EXPOSE 80 443 8082 8443
 
 # Iniciar Nginx en primer plano
 CMD ["nginx", "-g", "daemon off;"]
+
