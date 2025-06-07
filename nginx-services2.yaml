@@ -8,11 +8,11 @@ spec:
     app: nginx2
   ports:
     - name: http-joseasir2
-      port: 8081         # Puerto expuesto externamente
-      targetPort: 8081   # Puerto dentro del contenedor
+      port: 80         # Puerto expuesto externamente
+      targetPort: 80   # Puerto dentro del contenedor
     - name: https-joseasir2
-      port: 444
-      targetPort: 444
+      port: 443
+      targetPort: 443
     - name: http-otro
       port: 8082
       targetPort: 8082

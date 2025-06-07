@@ -1,17 +1,19 @@
 # Configuración para HTTP en el puerto 8081, redirigiendo a HTTPS
 server {
-    listen 8081;
+    listen 80;
     server_name tu.dominio.com;
     return 301 https://$host:444$request_uri;
 }
 
 # Configuración para HTTPS en el puerto 444
 server {
-    listen 444 ssl;
+    listen 443 ssl;
     server_name tu.dominio.com;
 
-    ssl_certificate     /etc/nginx/ssl/tu_certificado.crt;
-    ssl_certificate_key /etc/nginx/ssl/tu_llave.key;
+    ssl_certificate /etc/nginx/ssl/certificate.crt;
+    ssl_certificate_key /etc/nginx/ssl/private.key;
+    ssl_trusted_certificate /etc/nginx/ssl/ca_bundle.crt;
+
 
     root /var/www/custom;
     index index.html index.htm index.php;
