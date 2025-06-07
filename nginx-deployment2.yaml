@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/nginx:v13
+        image: 533266989458.dkr.ecr.us-east-1.amazonaws.com/nginx:v14
         ports:
         - containerPort: 8081  # Para HTTP (redirección a HTTPS)
         - containerPort: 444   # Para HTTPS del sitio 1
