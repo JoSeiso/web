@@ -48,7 +48,13 @@ jobs:
             helm repo update
             helm upgrade --install monitoring prometheus-community/kube-prometheus-stack \
               --namespace monitoring --create-namespace \
-              --set grafana.service.type=LoadBalancer
+              --set grafana.service.type=LoadBalancer \
+              --set grafana.additionalDataSources[0].name=Prometheus \
+              --set grafana.additionalDataSources[0].type=prometheus \
+              --set grafana.additionalDataSources[0].url=http://monitoring-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090 \
+              --set grafana.additionalDataSources[0].access=proxy \
+              --set grafana.additionalDataSources[0].isDefault=true
+ 
           else
             helm uninstall monitoring --namespace monitoring || echo "No existe release para desinstalar"
             kubectl delete namespace monitoring || echo "No existe namespace para borrar"
