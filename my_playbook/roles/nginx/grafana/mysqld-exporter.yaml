@@ -17,7 +17,9 @@ spec:
     spec:
       containers:
       - name: mysqld-exporter
-        image: quay.io/prometheus/mysqld-exporter:v0.15.0
+        image: quay.io/prometheus/mysqld-exporter:v0.14.0
+        args:
+          - "--config.my-cnf=false"
         env:
           - name: DATA_SOURCE_NAME
             value: "jose.marbae:Jm742569@tcp(mysql-service.default.svc.cluster.local:3306)/forobmw"
