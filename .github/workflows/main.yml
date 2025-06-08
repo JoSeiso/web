@@ -61,9 +61,9 @@ jobs:
 
       - name: Apply Kubernetes manifests - MySQL Exporter and Monitoring
         run: |
-          kubectl apply -f my_playbook/roles/nginx/mysqld-exporter.yaml
-          kubectl apply -f my_playbook/roles/nginx/mysqld-exporter-service.yaml
-          kubectl apply -f my_playbook/roles/nginx/mysqld-exporter-servicemonitor.yaml -n monitoring
+          kubectl apply -f my_playbook/roles/nginx/grafana/mysqld-exporter.yaml
+          kubectl apply -f my_playbook/roles/nginx/grafana/mysqld-exporter-service.yaml
+          kubectl apply -f my_playbook/roles/nginx/grafana/mysqld-exporter-servicemonitor.yaml -n monitoring
           
       - name: Verify deployments rollout status
         run: |
