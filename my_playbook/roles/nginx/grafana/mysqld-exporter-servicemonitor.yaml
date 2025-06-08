@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mysqld-exporter
+  labels:
+    release: monitoring  # Cambia según tu release de Prometheus
+spec:
+  selector:
+    matchLabels:
+      app: mysqld-exporter
+  endpoints:
+    - port: metrics
+      interval: 30s
