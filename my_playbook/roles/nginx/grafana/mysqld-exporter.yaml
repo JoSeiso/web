@@ -18,6 +18,8 @@ spec:
       containers:
       - name: mysqld-exporter
         image: prom/mysqld-exporter:latest
+        args:
+          - "--config.my-cnf=false"
         env:
           - name: DATA_SOURCE_NAME
             value: "jose.marbae:Jm742569@tcp(mysql-service:3306)/forobmw"
