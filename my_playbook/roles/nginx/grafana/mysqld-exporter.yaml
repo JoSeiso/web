@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: mysqld-exporter
-        image: quay.io/prometheus/mysqld-exporter:v0.14.0
+        image: quay.io/prometheus/mysqld-exporter:v0.15.0
         args:
           - "--config.my-cnf=false"
         env:
