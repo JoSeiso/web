@@ -46,7 +46,9 @@ jobs:
           if [ "${{ github.event.inputs.action }}" = "deploy" ]; then
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
             helm repo update
-            helm upgrade --install monitoring prometheus-community/kube-prometheus-stack --namespace monitoring --create-namespace
+            helm upgrade --install monitoring prometheus-community/kube-prometheus-stack \
+              --namespace monitoring --create-namespace \
+              --set grafana.service.type=LoadBalancer
           else
             helm uninstall monitoring --namespace monitoring || echo "No existe release para desinstalar"
             kubectl delete namespace monitoring || echo "No existe namespace para borrar"
