@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: php-fpm
-        image: 532151396604.dkr.ecr.us-east-1.amazonaws.com/php-fpm:v1
+        image: 532151396604.dkr.ecr.us-east-1.amazonaws.com/php-fpm:v14
         ports:
         - containerPort: 9000
         volumeMounts:
