@@ -12,7 +12,7 @@ spec:
   storageClassName: mysql-efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-008a59aee9394b8e1
+    volumeHandle: fs-06bd90e6d1a297655
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

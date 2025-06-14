@@ -37,7 +37,7 @@ jobs:
           kubectl create secret docker-registry ecr-secret \
             --docker-username=AWS \
             --docker-password=$(aws ecr get-login-password --region us-east-1) \
-            --docker-server=533266989458.dkr.ecr.us-east-1.amazonaws.com \
+            --docker-server=532151396604.dkr.ecr.us-east-1.amazonaws.com \
             --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Apply Kubernetes manifests - Volumes (EFS / PVC)
