@@ -1,0 +1,118 @@
+/* pago.css */
+
+body {
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 40px 20px;
+}
+
+.contenedor-pago {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+h2 {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+}
+
+table thead tr {
+    background-color: #007bff;
+    color: white;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table tbody tr:hover {
+    background-color: #f1f7ff;
+}
+
+h3 {
+    text-align: right;
+    color: #007bff;
+    font-weight: 700;
+    margin-bottom: 35px;
+}
+
+form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    margin-top: 20px;
+    color: #444;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #ccc;
+    border-radius: 7px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    resize: vertical;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+form textarea {
+    min-height: 80px;
+}
+
+form button {
+    margin-top: 30px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 600px) {
+    .contenedor-pago {
+        padding: 20px 15px;
+    }
+
+    table th, table td {
+        padding: 8px 10px;
+    }
+
+    form button {
+        width: 100%;
+        padding: 12px 0;
+    }
+}

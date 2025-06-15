@@ -1,0 +1,64 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1 {
+    color: #0066b3; /* Azul BMW */
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+/* Estilo para cada modelo */
+h2 {
+    margin: 15px auto;
+    font-size: 20px;
+    color: #333;
+    background-color: #e1e7ed; /* Fondo claro */
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    display: inline-block;
+    max-width: 600px;
+    margin: 10px;
+}
+
+h2 a {
+    text-decoration: none;
+    color: #0066b3;
+    transition: color 0.3s ease;
+}
+
+h2 a:hover {
+    color: #004a87; /* Azul más oscuro */
+}
+
+/* Mensaje cuando no hay modelos */
+p {
+    color: #555;
+    font-size: 16px;
+}
+
+/* Estilo general de enlaces */
+a {
+    color: #0066b3;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #004a87;
+}
+
+#index {
+    margin: 0 auto;
+    margin-top: 15px;
+    background-color: rgb(232, 232, 232);
+    width: 10%;
+    border-radius: 3px;
+    display: block;
+}

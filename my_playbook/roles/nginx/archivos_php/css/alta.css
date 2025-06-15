@@ -1,0 +1,98 @@
+/* General */
+body {
+    font-family: "Roboto Slab", serif;
+    background-color: #f0f0f0; /* Fondo gris claro */
+    margin: 0;
+    padding: 0;
+    text-align: center; /* Centra el título y el formulario */
+}
+#container h1 {
+    font-family: "Roboto Slab", serif;
+    color: #0066b3;
+}
+/* Contenedor principal */
+#container {
+    font-family: "Roboto Slab", serif;
+    margin: 20px auto;
+    width: 90%; /* Ajusta al ancho del dispositivo */
+    max-width: 400px; /* Limita el tamaño máximo */
+    background-color: #fff; /* Fondo blanco */
+    padding: 20px;
+    border: 1px solid #ccc; /* Borde sencillo */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+}
+
+/* Título principal */
+h1 {
+    font-size: 24px;
+    color: #333; /* Gris oscuro */
+    margin-bottom: 20px;
+}
+
+/* Formulario */
+form {
+    text-align: left; /* Alinea el contenido a la izquierda */
+}
+
+/* Fieldset */
+fieldset {
+    border: 1px solid #ccc; /* Borde sencillo */
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+legend {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Etiquetas e inputs */
+label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: inline-block;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Botones */
+#form-buttons {
+    text-align: center;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    padding: 8px 15px;
+    margin: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #0066b3; 
+    color: #fff;
+}
+
+input[type="submit"]:hover {
+    background-color: #004a87; 
+}
+
+input[type="reset"] {
+    background-color: #f44336; 
+    color: #fff;
+}
+
+input[type="reset"]:hover {
+    background-color: #d32f2f;
+}

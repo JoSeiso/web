@@ -1,0 +1,93 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Título principal */
+h1 {
+    color: #0066b3; /* Azul BMW */
+    margin: 20px 0;
+}
+
+/*Crear nuevo tema*/
+#nuevo_tema {
+    display: block;
+    text-align: right;
+    width: 90%;
+}
+
+/* Tabla */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse; /* Combina bordes para un diseño más limpio */
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    border-radius: 5px; /* Bordes redondeados */
+    overflow: hidden;
+}
+
+thead {
+    background-color: #0066b3; /* Azul BMW */
+    color: #fff; /* Texto blanco */
+}
+
+thead th {
+    padding: 10px;
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color alternado para filas */
+}
+
+tbody tr:hover {
+    background-color: #e1e7ed; /* Color al pasar el mouse */
+}
+
+tbody td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Bordes entre filas */
+}
+
+/* Enlaces */
+a {
+    text-decoration: none;
+    color: #0066b3; /* Azul BMW */
+    font-weight: bold;
+}
+
+a:hover {
+    color: #004a87; /* Azul más oscuro */
+    text-decoration: underline;
+}
+
+/* Botón "Borrar Tema" */
+a.borrar {
+    color: #f44336; /* Rojo */
+    font-weight: bold;
+}
+
+a.borrar:hover {
+    color: #d32f2f; /* Rojo más oscuro */
+}
+
+/* Mensaje cuando no hay temas */
+p {
+    color: #555;
+    font-size: 16px;
+}
+
+#index {
+    margin: 0 auto;
+    margin-top: 15px;
+    background-color: rgb(232, 232, 232);
+    width: 10%;
+    border-radius: 3px;
+    display: block;
+}

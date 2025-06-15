@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f8;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#perfil-container {
+    background-color: #ffffff;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+#perfil-container h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+/* Agrupamos el form y la imagen en columnas */
+.form-image-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+/* Formulario */
+.perfil-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.perfil-form label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
+
+.perfil-form input[type="text"],
+.perfil-form input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+}
+
+.perfil-form button[type="submit"] {
+    background-color: #0066b3;
+    color: #fff;
+    padding: 10px;
+    font-size: 15px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.perfil-form button[type="submit"]:hover {
+    background-color: #004a87;
+}
+
+/* Vista previa de la imagen */
+.profile-preview {
+    flex: 0 0 150px;
+    text-align: center;
+}
+
+.profile-preview p {
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #555;
+}
+
+.profile-preview img {
+    max-width: 130px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Enlace */
+a {
+    font-size: 14px;
+    color: #0066b3;
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive para móviles */
+@media (max-width: 500px) {
+    .form-image-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .perfil-form {
+        width: 100%;
+    }
+
+    .profile-preview {
+        margin-top: 20px;
+    }
+}

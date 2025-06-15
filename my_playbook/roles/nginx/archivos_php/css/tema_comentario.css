@@ -1,0 +1,202 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    padding: 30px;
+}
+
+/* Contenedor principal */
+#container {
+    max-width: 900px;
+    margin: auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Título principal */
+h1 {
+    font-size: 28px;
+    color: #004a87;
+    margin-bottom: 10px;
+}
+
+h2, h3 {
+    color: #0066b3;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/* Información del tema */
+p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Separador */
+hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+/* Comentarios */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #f8f9fb;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Usuario */
+.comment-user {
+    width: 70px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 5px;
+    border: 2px solid #ddd;
+}
+
+/* Contenido del comentario */
+.comment-content {
+    flex-grow: 1;
+}
+
+.comment-content p {
+    margin-bottom: 8px;
+    color: #444;
+}
+
+small {
+    display: block;
+    font-size: 12px;
+    color: #888;
+}
+
+/* Enlaces */
+a {
+    color: #0066b3;
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+a:hover {
+    color: #003b66;
+    text-decoration: underline;
+}
+
+a.editar {
+    color: #f0ad4e;
+}
+
+a.borrar {
+    color: #d9534f;
+}
+
+/* Formulario de comentario */
+form {
+    margin-top: 20px;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    background-color: #0066b3;
+    color: #fff;
+    padding: 10px 25px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #004a87;
+}
+
+/* Enlace para volver */
+a.volver {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #0066b3;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+a.volver:hover {
+    background-color: #004a87;
+}
+
+/* Botón comentar alineado a la izquierda */
+form input[type="submit"] {
+    margin-top: 10px;
+    padding: 10px 25px;
+    border: none;
+    background-color: #0066b3;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* para que quede en bloque y alineado a la izquierda */
+}
+
+/* Cambios hover */
+form input[type="submit"]:hover {
+    background-color: #004a87;
+}
+
+/* Contenedor para centrar el enlace "Volver" */
+.volver-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Enlace "Volver" con estilo discreto */
+a.volver-link {
+    color: #0066b3;
+    text-decoration: underline;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+a.volver-link:hover {
+    color: #004a87;
+}

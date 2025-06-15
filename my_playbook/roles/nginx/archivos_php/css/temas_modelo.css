@@ -1,0 +1,76 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1 {
+    color: #0066b3; /* Azul BMW */
+    font-size: 28px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+/* Contenedor de temas */
+p {
+    text-align: left;
+    background-color: #fff;
+    margin: 10px auto;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    max-width: 600px;
+}
+
+/* Título del tema */
+p strong {
+    font-size: 18px;
+    color: #333;
+}
+
+/* Fecha de creación */
+p small {
+    color: #555;
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+/* Mensaje si no hay temas */
+p.no-temas {
+    color: #777;
+    font-style: italic;
+}
+
+/* Enlace para volver */
+a.volver-a-lista {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #0066b3;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+a.volver-a-lista:hover {
+    background-color: #004a87;
+}
+
+.titulo-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: border-bottom 0.2s ease;
+    border-bottom: 1px solid transparent;
+}
+
+.titulo-link:hover {
+    border-bottom: 1px solid #999;
+}

@@ -1,0 +1,77 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Contenedor principal */
+#container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1000px;
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1 {
+    color: #0066b3;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Información del tema */
+p {
+    text-align: left;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Enlaces */
+a {
+    text-decoration: none;
+    color: #0066b3;
+}
+
+a:hover {
+    color: #004a87;
+    text-decoration: underline;
+}
+
+/* Botones de acciones */
+a.editar {
+    color: #ffa500; 
+}
+
+
+/* Formulario de comentarios */
+form {
+    margin-top: 20px;
+    text-align: left;
+}
+
+textarea {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #0066b3;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #004a87;
+}

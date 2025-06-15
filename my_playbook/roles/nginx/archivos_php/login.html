@@ -1,0 +1,23 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Iniciar Sesión - BMW Forum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+<body>
+    <div id="login-container">
+        <h1>Iniciar Sesión</h1>
+        <p>Accede a tu cuenta para participar en el BMW Forum</p>
+        <form action="login.php" method="POST" enctype="multipart/form-data">
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="Ingresa tu correo" required>
+            
+            <label for="password">Contraseña:</label>
+            <input type="password" name="password" placeholder="Ingresa tu contraseña" required>
+            
+            <input type="submit" value="Iniciar sesión">
+        </form>
+    </div>
+</body>
+</html>

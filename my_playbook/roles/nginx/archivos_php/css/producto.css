@@ -1,0 +1,142 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f7fa;
+    color: #2c3e50;
+  }
+  
+  .producto-contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 40px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+    gap: 50px;
+  }
+  
+  .producto-imagen img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+  }
+  
+  .producto-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .titulo-producto {
+    font-size: 2.2em;
+    font-weight: 600;
+    margin: 0;
+    color: #1a1a1a;
+  }
+  
+  .producto-descripcion h2 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #555;
+  }
+  
+  .producto-descripcion p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #666;
+  }
+  
+  .producto-precio span {
+    font-size: 1.5em;
+    color: #0066cc;
+    font-weight: bold;
+  }
+  
+  .cantidad-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .cantidad-box button {
+    background-color: #e9ecef;
+    border: none;
+    width: 36px;
+    height: 36px;
+    font-size: 1.2em;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .cantidad-box input {
+    width: 60px;
+    text-align: center;
+    font-size: 1em;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .btn-agregar {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 14px 24px;
+    font-size: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-agregar:hover {
+    background-color: #0056b3;
+  }
+  
+  .volver {
+    margin-top: 30px;
+  }
+  
+  .volver a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+  }
+  
+  .volver a:hover {
+    text-decoration: underline;
+  }
+  
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #38a169;
+    color: white;
+    padding: 14px 24px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    font-size: 0.95em;
+    z-index: 1000;
+    transition: opacity 0.3s;
+  }
+  
+  .oculto {
+    display: none;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .producto-contenedor {
+      flex-direction: column;
+      padding: 20px;
+    }
+  }
+  
